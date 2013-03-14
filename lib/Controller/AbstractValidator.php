@@ -32,21 +32,22 @@ class Controller_AbstractValidator extends \AbstractController {
     }
 
     /**
-     * In: "int|required|alphanum|save"
-     * In: "int!|a-z|"
-     * Out: array('int','required','alphanum','save')
+     * In: "field_definition|int|required|alphanum|save"
+     * In: "field_definition|int!|a-z|"
+     * Out: array('field_definition',array('int','required','alphanum','save'))
      */
     function expandRules($rules)
     {
-        list($field,$rules)=explode('|',$rules,2);
+        list($field_definition,$rules)=explode('|',$rules,2);
         $rules=preg_split('/[|,:]/',$rules);
-        return array($field,$rules);
+        return array($field_definition,$rules);
     }
 
     /**
      * In: "name,surname,foo"
      * In: "%boolean,-@address" // boolean type except address group
      * Out: array('name','surname','foo')
+     * Out: array('%boolean','-@address')
      *
      */
     function expandFieldDefinition($field_definition)
@@ -98,7 +99,7 @@ class Controller_AbstractValidator extends \AbstractController {
         return array_unshift($this->current_ruleset);
     }
 
-    public $acc=null;
+    public $acc = null; // accumulator
     function applyRules($field,$rules){
         $this->acc=$this->get($field);
         $this->current_ruleset=$rules;
