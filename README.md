@@ -607,7 +607,7 @@ rule name 'eq', you specify the value:
 
 If you want to compare with other field you can either specify it inside the
 field or use one of the methods with "f" at the end:
-`eqf, nef, ltf, gtf, lef, get`:
+`eqf, nef, ltf, gtf, lef, gef`:
 
     $validator->is('pass1=pass2')
     $validator->is('pass1','eqf','pass2');
